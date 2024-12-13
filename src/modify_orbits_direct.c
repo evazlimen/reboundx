@@ -2,6 +2,7 @@
  * @file    modify_orbits_direct.c
  * @brief   Update orbital with prescribed timescales by directly changing orbital elements after each timestep.
  * @author  Dan Tamayo <tamayo.daniel@gmail.com>
+ * modifications to the form of the eccentricity damping made by Eva Zlimen <ezlimen@g.ucla.edu>
  * 
  * @section     LICENSE
  * Copyright (c) 2015 Dan Tamayo, Hanno Rein
@@ -111,7 +112,8 @@ static struct reb_particle rebx_calculate_modify_orbits_direct(struct reb_simula
     	o.a += a0*dt*invtau_a;
 	}
 	if(tau_e != NULL){
-    	o.e += e0*dt/(*tau_e);
+    	o.e += (1-e0*e0)*dt/(*tau_e);
+        printf("\n hello");
 	}
 	if(tau_inc != NULL){
     	o.inc += inc0*dt/(*tau_inc);
